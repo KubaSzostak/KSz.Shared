@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>77d2b086-bbf2-471f-bfed-f129e2339a3b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>System</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EGB\G5Id.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KW\KW.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Terc\Terc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Terc\Terc2011.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Terc\TercPresenter.cs" />
+  </ItemGroup>
+</Project>

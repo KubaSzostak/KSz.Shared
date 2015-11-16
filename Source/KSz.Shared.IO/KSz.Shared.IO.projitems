@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>82601861-55a4-4136-a647-a284214e97db</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>System</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\DataStorageAccess.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\DataStorageAccessEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\CSV_obsolote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\Geo\GSI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\Geo\IDEX.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\TextLines\TextLines.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\TextLines\TextLinesStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\TextLines\TextLinesStorageCSV.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\ZIP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageSerialization\DataStorageSerialization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageSerialization\Point\Point.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageSerialization\Point\PointTextLines.cs" />
+  </ItemGroup>
+</Project>

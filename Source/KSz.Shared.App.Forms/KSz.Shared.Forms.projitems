@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>f5699cbd-fe21-4448-8897-d46f2a70e43e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>System</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AppUI.Forms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\InputBoxWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\InputBoxWin.Designer.cs">
+      <DependentUpon>InputBoxWin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\BindingEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\WinFormsEx.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Controls\InputBoxWin.resx">
+      <DependentUpon>InputBoxWin.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>47db778c-dc35-4c48-8f0d-c0edb164f8f9</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>System</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppLog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppLogCore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppUICore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppUI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\DialogServices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\Disposable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\LoadInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\ObservableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\ProgressManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Classes\XML.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\CoordinateSystems.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Ellipsoid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Geodetic\GeodeticCoordinateSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Geodetic\WGS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Projected\GaussKrugerProjection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Projected\PolishProjections.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Projected\ProjectedCoordinateSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Projected\UtmProjection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoordinateSystems\Projected\WebMarcatorProjection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\AssemblyEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ExceptionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\NumberEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\DateTimeEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumerableEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\EnumEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ObjectEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ReflectionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringBuilderEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OneLineRecord.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SysUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Angle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Calc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Coordinate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Date.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Formats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\LinearSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Period.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Points.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Values\Time.cs" />
+  </ItemGroup>
+</Project>
