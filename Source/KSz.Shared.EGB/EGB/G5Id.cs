@@ -402,12 +402,19 @@ namespace System
 
                 if (arDz.StartsWith("AR_"))
                 {
+                    // AR_138.13/2
                     int dotPos = arDz.IndexOf('.'); // = 6
-                    mNrAr = Substring(arDz, 3, dotPos - 3, false); // W gdyni jest np. 226201_1.0002.AR_1M.231/2006, trzeba sprawdzić AR_1M
-                    if (dotPos > 0) //226201_1.0002.AR_138 
+
+                    if (dotPos < 0) 
                     {
+                        //226201_1.0002.AR_138
+                        mNrAr = arDz;
+                        mNrDz = null;
+                    }
+                    else
+                    {
+                        mNrAr = Substring(arDz, 3, dotPos - 3, false); // W gdyni jest np. 226201_1.0002.AR_1M.231/2006, trzeba sprawdzić AR_1M
                         mNrDz = Substring(arDz, dotPos + 1, -1, false);
-                        mIddIsValid = true;
                     }
                 }
                 else
@@ -416,6 +423,27 @@ namespace System
                     mNrDz = arDz;
                     mIddIsValid = true;
                 }
+
+                if (!string.IsNullOrEmpty(mNrDz))
+                {
+                    foreach (var ch in mNrDz)
+                    {
+                        if (char.IsNumber(ch) || (ch =='/'))
+                    }
+                }
+
+
+                if (!string.IsNullOrEmpty(mNrAr) && ToInt(mNrAr) < 1)
+                    return;
+
+                if (string.IsNullOrEmpty(mNrDz))
+                    return;
+
+                if (ToInt(mNrDz[0].ToString()) < 1) //EmptyId = "000000_0.0000.0";
+                    return;
+
+                mIddIsValid = IsFraction(NrDz);
+
             }
         }
 
