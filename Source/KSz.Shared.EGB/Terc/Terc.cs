@@ -29,15 +29,14 @@ namespace System
                 return Nazwa;
             return Nazwa + ", " + NazDod;
         }
-
     }
 
     public class TercWoj : TercRecord
     {
-        internal TercWoj(string woj, string nazwa, string nazDod)
+        internal TercWoj(string nrWoj, string nazwa, string nazDod)
             : base(nazwa, nazDod)
         {
-            Woj = woj;
+            Woj = nrWoj;
             PowList = new List<TercPow>();
             GmiList = new List<TercGmi>();
             ObrList = new List<TercObr>();
@@ -58,11 +57,11 @@ namespace System
 
     public class TercPow : TercRecord
     {
-        internal TercPow(TercWoj woj, string pow, string nazwa, string nazDod)
+        internal TercPow(TercWoj woj, string nrPow, string nazwa, string nazDod)
             : base(nazwa, nazDod)
         {
             Woj = woj;
-            Pow = pow;
+            Pow = nrPow;
             GmiList = new List<TercGmi>();
             ObrList = new List<TercObr>();
         }
@@ -81,13 +80,13 @@ namespace System
 
     public class TercGmi : TercRecord
     {
-        internal TercGmi(TercWoj woj, TercPow pow, string gmi, string rodz, string nazwa, string nazDod)
+        internal TercGmi(TercWoj woj, TercPow pow, string nrGmi, string rodzGmi, string nazwa, string nazDod)
             : base(nazwa, nazDod)
         {
             Woj = woj;
             Pow = pow;
-            Gmi = gmi;
-            Rodz = rodz;
+            Gmi = nrGmi;
+            Rodz = rodzGmi;
             ObrList = new List<TercObr>();
         }
 
@@ -288,45 +287,97 @@ namespace System
             //    throw new ArgumentException("Invalid " + GetType().Name + ".IdObr value: " + obr, obr);
         }
 
-        protected void AddTercRecord(string Woj, string Pow, string Gmi, string Rodz, string Nazwa, string NazDod)
+        public void AddTerc(string tercId, string nazwa, string nazDod)
         {
-            if (string.IsNullOrEmpty(Pow))
-                AddWoj(Woj, Nazwa, NazDod);
-            else if (string.IsNullOrEmpty(Gmi))
-                AddPow(Woj, Pow, Nazwa, NazDod);
+            if (string.IsNullOrEmpty(tercId))
+                return;
+            
+            if (tercId.Length == 2)
+            {
+                if (!this.WojDict.ContainsKey(tercId))
+                {
+                    AddWoj(tercId, nazwa, nazDod);
+                }
+            }
+            else if (tercId.Length == 4)
+            {
+                if (!this.PowDict.ContainsKey(tercId))
+                {
+                    AddPow(tercId.Substring(0, 2), tercId.Substring(2, 2), nazwa, nazDod);
+                }
+            }
+            else if (tercId.Length == 8)
+            {
+                //020102_2
+                if (!this.GmiDict.ContainsKey(tercId))
+                {
+                    AddGmi(
+                        tercId.Substring(0, 2), // woj
+                        tercId.Substring(2, 2), // pow
+                        tercId.Substring(4, 2), // gmi
+                        tercId.Substring(7,1),  // rodz
+                        nazwa, nazDod);
+                }
+            }
             else
-                AddGmi(Woj, Pow, Gmi, Rodz, Nazwa, NazDod);
+            {
+                throw new Exception("Invalid TERC Id: '" + tercId + "'");
+            }
         }
 
-        private void AddGmi(string Woj, string Pow, string Gmi, string Rodz, string Nazwa, string NazDod)
+        protected void AddTercRecord(string nrWoj, string nrPow, string nrGmi, string rodzGmi, string nazwa, string nazDod)
         {
-            var w = WojDict[Woj];
-            var p = PowDict[Woj + Pow];
-            var g = new TercGmi(w, p, Gmi, Rodz, Nazwa, NazDod);
+            if (string.IsNullOrEmpty(nrPow))
+                AddWoj(nrWoj, nazwa, nazDod);
+            else if (string.IsNullOrEmpty(nrGmi))
+                AddPow(nrWoj, nrPow, nazwa, nazDod);
+            else
+                AddGmi(nrWoj, nrPow, nrGmi, rodzGmi, nazwa, nazDod);
+        }
+
+        private TercWoj AddWoj(string nrWoj, string nazwa, string nazDod)
+        {
+            var w = new TercWoj(nrWoj, nazwa, nazDod);
+            WojDict.Add(w.Id, w);
+            WojList.Add(w);
+            Dict.Add(w.Id, w);
+
+            return w;
+        }
+
+        private TercPow AddPow(string nrWoj, string nrPow, string nazwa, string nazDod)
+        {
+            var w = GetWoj(nrWoj);
+            var p = new TercPow(w, nrPow, nazwa, nazDod);
+
+            PowDict.Add(p.Id, p);
+            Dict.Add(p.Id, p);
+            w.PowList.Add(p);
+
+            return p;
+        }
+
+        private TercGmi AddGmi(string nrWoj, string nrPow, string nrGmi, string rodzGmi, string nazwa, string nazDod)
+        {
+            var w = GetWoj(nrWoj);
+            var p = GetPow(nrWoj + nrPow);
+            var g = new TercGmi(w, p, nrGmi, rodzGmi, nazwa, nazDod);
 
             GmiDict.Add(g.Id, g);
             Dict.Add(g.Id, g);
             w.GmiList.Add(g);
             p.GmiList.Add(g);
+
+            return g;
         }
 
-        private void AddPow(string Woj, string Pow, string Nazwa, string NazDod)
+        private void AddIfNotNull(HashSet<string> set, string value)
         {
-            var w = WojDict[Woj];
-            var p = new TercPow(w, Pow, Nazwa, NazDod);
-
-            PowDict.Add(p.Id, p);
-            Dict.Add(p.Id, p);
-            w.PowList.Add(p);
+            if (!string.IsNullOrEmpty(value))
+                set.Add(value);
         }
 
-        private void AddWoj(string Woj, string Nazwa, string NazDod)
-        {
-            var w = new TercWoj(Woj, Nazwa, NazDod);
-            WojDict.Add(w.Id, w);
-            WojList.Add(w);
-            Dict.Add(w.Id, w);
-        }
+
 
 
 
@@ -405,47 +456,6 @@ namespace System
                     res.AddObr(rec.Gmi.Id, rec.Obr, rec.Nazwa, rec.PodzNaAr);
 
             return res;
-        }
-
-        private void AddIfNotNull(HashSet<string> set, string value)
-        {
-            if (!string.IsNullOrEmpty(value))
-                set.Add(value);
-        }
-
-
-        public void AddTerc(string tercId)
-        {
-            var wId = tercId.Substring(0, 2);
-            if (!this.WojDict.ContainsKey(wId))
-            {
-                var w = Records.WojDict[wId];
-                AddTercRecord(w.Woj, null, null, null, w.Nazwa, w.NazDod);
-            }
-
-            if (tercId.Length >= 4)
-            {
-                var pId = tercId.Substring(0, 4);
-                if (!this.PowDict.ContainsKey(pId))
-                {
-                    var p = Records.PowDict[pId];
-                    AddTercRecord(p.Woj.Woj, p.Pow, null, null, p.Nazwa, p.NazDod);
-
-                }
-            }
-
-            //020102_2
-            if (tercId.Length >= 8)
-            {
-                var gId = tercId.Substring(0, 8);
-                if (!this.PowDict.ContainsKey(gId))
-                {
-                    var g = Records.GmiDict[gId];
-                    AddTercRecord(g.Woj.Woj, g.Pow.Pow, g.Gmi, g.Rodz, g.Nazwa, g.NazDod);
-
-                }
-            }
-
         }
     }
 

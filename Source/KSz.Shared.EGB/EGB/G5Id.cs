@@ -146,10 +146,12 @@ namespace System
             return new Exception(errMsg);
         }
 
+        private bool mIddIsValid = false;
         public bool IddIsValid
         {
             get
             {
+                /*
                 if (ToInt(NrWoj) < 1)
                     return false;
                 if (ToInt(NrPow) < 1)
@@ -172,10 +174,12 @@ namespace System
                     return false;
 
                 return true;
+                */
+                return mIddIsValid;
             }
         }
 
-        private int ToInt(string s)
+        private static int ToInt(string s)
         {
             int res = 0;
             int.TryParse(s, out res);
@@ -362,6 +366,7 @@ namespace System
                 mNrObr = null;
                 mNrAr = null;
                 mNrDz = null;
+                mIddIsValid = false;
 
                 mNrWoj = Substring(value, 0, 2, true);
                 if (mNrWoj == null)
@@ -394,17 +399,22 @@ namespace System
                 var arDz = Substring(value, 14, -1, false);
                 if (arDz == null)
                     return;
+
                 if (arDz.StartsWith("AR_"))
                 {
                     int dotPos = arDz.IndexOf('.'); // = 6
                     mNrAr = Substring(arDz, 3, dotPos - 3, false); // W gdyni jest np. 226201_1.0002.AR_1M.231/2006, trzeba sprawdzić AR_1M
-                    if (dotPos > 0) //226201_1.0002.AR_138
+                    if (dotPos > 0) //226201_1.0002.AR_138 
+                    {
                         mNrDz = Substring(arDz, dotPos + 1, -1, false);
+                        mIddIsValid = true;
+                    }
                 }
                 else
                 {
                     mNrAr = null;
                     mNrDz = arDz;
+                    mIddIsValid = true;
                 }
             }
         }
