@@ -24,9 +24,9 @@ namespace System.IO
         /// <summary>
         /// Indicates whether leading and trailing white space should be trimmed from field values.
         /// </summary>
-        public bool TrimWhiteSpace = true;
+        public bool TrimWhiteSpace = false;
 
-        public bool SkipEmptyLines = true;
+        public bool SkipEmptyLines = false;
 
         private int lineNo = 0;
 

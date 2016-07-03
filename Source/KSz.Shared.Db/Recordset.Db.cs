@@ -217,7 +217,7 @@ namespace System.Data
                         mHost.DeserializePropertyValue(Current, prop, mReader[prop.Name]);
                     }
                     Current.SetRecordSaved();
-                    Current.OnRecordInitialized();
+                    Current.InitializeRecord();
                 }
                 return res;
             }

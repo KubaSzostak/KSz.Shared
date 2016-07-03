@@ -29,7 +29,7 @@ namespace System
         public Stream SaveFileDialog(ref string filePath, string fileDescription, params string[] fileExtensions)
         {
             Stream stream = null;
-            OpenFileDialogNative(ref stream, ref filePath, fileDescription, fileExtensions);
+            SaveFileDialogNative(ref stream, ref filePath, fileDescription, fileExtensions);
             return stream;
         }
 
@@ -62,7 +62,7 @@ namespace System
             }
         }
 
-        public bool SaveText(string text, ref string filePath, string fileDescription, params string[] fileExtensions)
+        public bool SaveText(Func<IEnumerable<string>> getLines, ref string filePath, string fileDescription, params string[] fileExtensions)
         {
             var stm = SaveFileDialog(ref filePath, fileDescription, fileExtensions);
             if (stm == null)
@@ -71,7 +71,10 @@ namespace System
             using (stm)
             {
                 var writer = new StreamWriter(stm, new UTF8Encoding(false));
-                writer.Write(text);
+                foreach (var ln in getLines())
+                {
+                    writer.WriteLine(ln);
+                }
                 writer.Flush();
             }
             return true;

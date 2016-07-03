@@ -105,7 +105,7 @@ namespace System.IO
         }
         
         // BinaryWriter
-        protected StreamWriter Storage { get; private set; }
+        protected TextWriter Storage { get; private set; }
 
         protected override void OnDisposing()
         {

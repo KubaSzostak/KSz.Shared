@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSz.Portable", "KSz.Portable\KSz.Portable.csproj", "{E9A84431-3CEA-46F5-9102-E14488C3BA42}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KSz.Shared", "KSz.Portable\KSz.Shared.csproj", "{E9A84431-3CEA-46F5-9102-E14488C3BA42}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KSz.Shared.Core", "KSz.Shared.Core\KSz.Shared.Core.shproj", "{47DB778C-DC35-4C48-8F0D-C0EDB164F8F9}"
 EndProject
@@ -34,23 +34,22 @@ Global
 		KSz.Shared.App.Machine\KSz.Shared.Machine.projitems*{20326159-c0df-4f1f-b0a7-57bd094afa9e}*SharedItemsImports = 13
 		KSz.Shared.Db\KSz.Shared.Data.projitems*{72df9c30-c4cf-4cb8-b182-60daafb94ef0}*SharedItemsImports = 13
 		KSz.Shared.App.Forms\KSz.Shared.Forms.projitems*{f5699cbd-fe21-4448-8897-d46f2a70e43e}*SharedItemsImports = 13
-		KSz.Shared.EGB\KSz.Shared.EGB.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
-		KSz.Shared.App.WPF\KSz.Shared.WPF.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
-		KSz.Shared.IO\KSz.Shared.IO.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
 		KSz.Shared.Db\KSz.Shared.Data.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
-		KSz.Shared.App.Native\KSz.Shared.NativeApp.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
+		KSz.Shared.EGB\KSz.Shared.EGB.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
 		KSz.Shared.Core\KSz.Shared.Core.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
-		KSz.Shared.EGB\KSz.Shared.EGB.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
-		KSz.Shared.IO\KSz.Shared.IO.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
+		KSz.Shared.App.Native\KSz.Shared.NativeApp.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
+		KSz.Shared.IO\KSz.Shared.IO.projitems*{90c02122-0e35-4068-b39f-86b3134eb703}*SharedItemsImports = 4
 		KSz.Shared.Db\KSz.Shared.Data.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
 		KSz.Shared.App.Forms\KSz.Shared.Forms.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
-		KSz.Shared.App.Native\KSz.Shared.NativeApp.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
+		KSz.Shared.EGB\KSz.Shared.EGB.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
 		KSz.Shared.Core\KSz.Shared.Core.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
+		KSz.Shared.App.Native\KSz.Shared.NativeApp.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
+		KSz.Shared.IO\KSz.Shared.IO.projitems*{057d50d6-3960-4341-b16a-26cd19a2bff5}*SharedItemsImports = 4
 		KSz.Shared.App.Xps\KSz.Shared.Xps.projitems*{f29d2128-2e46-4786-9766-c365f5741195}*SharedItemsImports = 13
 		KSz.Shared.App.Native\KSz.Shared.NativeApp.projitems*{2008a740-950e-45b5-8475-85a4a2a2123e}*SharedItemsImports = 13
 		KSz.Shared.EGB\KSz.Shared.EGB.projitems*{e9a84431-3cea-46f5-9102-e14488c3ba42}*SharedItemsImports = 4
-		KSz.Shared.IO\KSz.Shared.IO.projitems*{e9a84431-3cea-46f5-9102-e14488c3ba42}*SharedItemsImports = 4
 		KSz.Shared.Core\KSz.Shared.Core.projitems*{e9a84431-3cea-46f5-9102-e14488c3ba42}*SharedItemsImports = 4
+		KSz.Shared.IO\KSz.Shared.IO.projitems*{e9a84431-3cea-46f5-9102-e14488c3ba42}*SharedItemsImports = 4
 		KSz.Shared.EGB\KSz.Shared.EGB.projitems*{77d2b086-bbf2-471f-bfed-f129e2339a3b}*SharedItemsImports = 13
 		KSz.Shared.App.WPF\KSz.Shared.WPF.projitems*{3f27b031-4ad4-43fa-bf64-3104fb4715e2}*SharedItemsImports = 13
 		KSz.Shared.Core\KSz.Shared.Core.projitems*{47db778c-dc35-4c48-8f0d-c0edb164f8f9}*SharedItemsImports = 13

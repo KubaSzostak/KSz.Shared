@@ -9,6 +9,8 @@
     <Import_RootNamespace>KSz.Shared.Xps</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)FlowDocumentEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Xps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)XpsTableEx.cs" />
   </ItemGroup>
 </Project>

@@ -147,7 +147,13 @@ namespace System.Data
 
         public virtual object GetRecordId()
         {
-            return RecordProvider.RecordIdProperty.GetValue(this, null);
+            PropertyInfo idProp = null;
+            if (RecordProvider != null)
+                idProp = RecordProvider.RecordIdProperty;
+            else
+                idProp =  System.Data.RecordProvider.GetIdProperty(this.GetType());
+
+            return idProp.GetValue(this, null);
             //return GetRecordValue(DbProvider.DbIdProperty);
         }
 
@@ -205,7 +211,17 @@ namespace System.Data
             this.RecordProvider = null;// Leave a while recordset, so in calling OnRecordsetDeleging() one can use this.DbProvider property.
         }
 
-        protected internal virtual void OnRecordInitialized()
+        private bool _initialzed = false;
+        internal void InitializeRecord()
+        {
+            if (!_initialzed)
+            {
+                OnRecordInitialized();
+                _initialzed = true;
+            }
+        }
+        
+        protected virtual void OnRecordInitialized()
         {
         }
 
@@ -554,12 +570,22 @@ namespace System.Data
 
         internal RecordProvider(Type recType) : base(recType)
         {
-            var idProps = RecordProperties.Where(p => p.IsDefined(typeof(RecordIdAttribute), true));
+            RecordIdProperty = GetIdProperty(this.RecordType, this.RecordProperties);
+        }
+
+        private static PropertyInfo GetIdProperty(Type recordType, IEnumerable<PropertyInfo> recordProperties)
+        {
+            var idProps = recordProperties.Where(p => p.IsDefined(typeof(RecordIdAttribute), true));
             if (idProps.Count() > 1)
-                throw new Exception(RecordType.FullName + " contanis to many properties with " + typeof(RecordIdAttribute).Name);
+                throw new Exception(recordType.FullName + " contanis to many properties with " + typeof(RecordIdAttribute).Name);
             if (idProps.Count() < 1)
-                throw new Exception(RecordType.FullName + " does not contain property with " + typeof(RecordIdAttribute).Name);
-            RecordIdProperty = idProps.First();
+                throw new Exception(recordType.FullName + " does not contain property with " + typeof(RecordIdAttribute).Name);
+            return idProps.First();
+        }
+
+        public static PropertyInfo GetIdProperty(Type recordType)
+        {
+            return GetIdProperty(recordType, recordType.GetProperties());
         }
 
 
@@ -611,8 +637,8 @@ namespace System.Data
             {
                 var wasVirtual = rec.RecordIsVirtual;
                 rec.SetRecordSaved();
-                if (!wasVirtual)
-                    rec.OnRecordInitialized();
+                //if (!wasVirtual)
+                //    rec.InitializeRecord();
             }
         }
         protected abstract void WriteToProvider(IEnumerable<Record> records);
@@ -788,12 +814,13 @@ namespace System.Data
             record.SetRecordVirtual();
             record.RecordProvider = this.Provider;
             AddToDictionary(record);
-            record.OnRecordInitialized();
+            record.InitializeRecord();
         }
 
 
         public void Add(TRecord record)
         {
+            record.InitializeRecord();
             Add(new TRecord[] { record });
         }
 
@@ -873,14 +900,6 @@ namespace System.Data
 	        }
         }
     }
-
-    public static class RecordsetEx
-    {
-        public static RecordsView<T> Filter<T>(this IEnumerable<T> items, string filter)
-            where T : Record
-        {
-            return items.Where(r => r.FullSearchStringContains(filter)).ToView();
-        }
-    }
+    
 
 }

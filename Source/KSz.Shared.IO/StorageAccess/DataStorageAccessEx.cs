@@ -17,23 +17,24 @@ namespace System.IO
                 return true;
             }
         }
-        
+
         /// <example>
         /// using (var storage = new TextLineReader())
         /// {
-        ///     if (AppServices.FileDialog.OpenStorageReader(ref filePath, storage))
+        ///     storage.InitDelimitedFieldsReader();
+        ///     if (AppUI.Dialog.OpenStorageReader(ref filePath, storage))
         ///     {
         ///         return storage.ReadAll();
         ///     }
         /// }
         /// </example>
-        public static bool OpenStorageReader<T>(this DialogServices dlg, string filePath, T storage) where T : TextStorageReader
+        public static bool OpenStorageReader<T>(this DialogServices dlg, ref string filePath, T storage) where T : TextStorageReader
         {
             var stream = dlg.OpenFileDialog(ref filePath, storage.StorageInfo.Format, storage.StorageInfo.Extension);
             return OpenStreamStorage(stream, storage, filePath);
         }
 
-        public static bool OpenStorageWriter<T>(this DialogServices dlg, string filePath, T storage) where T : TextStorageWriter
+        public static bool OpenStorageWriter<T>(this DialogServices dlg, ref string filePath, T storage) where T : TextStorageWriter
         {
             var stream = dlg.SaveFileDialog(ref filePath, storage.StorageInfo.Format, storage.StorageInfo.Extension);
             return OpenStreamStorage(stream, storage, filePath);

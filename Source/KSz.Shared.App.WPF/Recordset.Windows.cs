@@ -89,6 +89,11 @@ namespace System
             
         }
 
+        public static RecordsView<T> Filter<T>(this IEnumerable<T> items, string filter)
+            where T : Record
+        {
+            return items.Where(r => r.FullSearchStringContains(filter)).ToView();
+        }
 
     }
 }

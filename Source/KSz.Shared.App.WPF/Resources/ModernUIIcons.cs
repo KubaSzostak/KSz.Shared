@@ -21,6 +21,8 @@ namespace System
         public System.Windows.Media.Geometry CadastralParcelMinus { get { return this.appbar_tiles_minus; } }
         public System.Windows.Media.Geometry CadastralParcelPlus { get { return this.appbar_tiles_add; } }
         public System.Windows.Media.Geometry CadastralParcelMulti { get { return this.appbar_tiles_nine; } }
+        public System.Windows.Media.Geometry CadastralParcelMove { get { return this.appbar_arrow_expand; } }
+        public System.Windows.Media.Geometry CadastralParcelJoin { get { return this.appbar_arrow_collapsed; } }
 
         public System.Windows.Media.Geometry Document { get { return this.appbar_page; } }
         public System.Windows.Media.Geometry OwnershipMove { get { return this.appbar_people_right; } }

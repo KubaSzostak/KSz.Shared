@@ -5,7 +5,8 @@ using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Documents;
-using System.Windows.Xps.Packaging;
+using System.Windows.Media;
+using System.Windows.Xps.Packaging; //Assembly:  ReachFramework.dll
 
 namespace System.Windows.Documents
 {
@@ -127,7 +128,7 @@ namespace System.Windows.Documents
                 var trimedItem = item.Trim();
                 if (!string.IsNullOrEmpty(trimedItem))
                 {
-                    var itemWords = trimedItem.SplitValues(true, separator);
+                    var itemWords = trimedItem.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var iw in itemWords)
                     {
                         res.Add(iw.Trim());
@@ -137,5 +138,44 @@ namespace System.Windows.Documents
 
             return res;
         }
+
+
+        public static FlowDocument GetFlowDocument(string header, params string[] lines)
+        {
+            FlowDocument doc = new FlowDocument();
+            doc.Background = Brushes.White;
+            doc.PagePadding = new Thickness(96);
+            doc.FontSize = 12;
+            doc.ColumnWidth = 999999;
+
+            if (header != null)
+            {
+                var par = new Paragraph();
+                par.FontWeight = FontWeights.Bold;
+                par.Inlines.Add(new LineBreak());
+                par.Inlines.Add(header);
+
+                doc.Blocks.Add(par);
+            }
+
+
+            if (lines != null)
+            {
+                var par = new Paragraph();
+                par.Inlines.Add(new LineBreak());
+                foreach (var ln in lines)
+                {
+                    par.Inlines.Add(ln);
+                    par.Inlines.Add(new LineBreak());
+
+                }
+                doc.Blocks.Add(par);
+            }
+
+            return doc;
+        }
     }
+
+
+
 }

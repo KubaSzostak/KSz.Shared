@@ -421,17 +421,7 @@ namespace System
                 {
                     mNrAr = null;
                     mNrDz = arDz;
-                    mIddIsValid = true;
                 }
-
-                if (!string.IsNullOrEmpty(mNrDz))
-                {
-                    foreach (var ch in mNrDz)
-                    {
-                        if (char.IsNumber(ch) || (ch =='/'))
-                    }
-                }
-
 
                 if (!string.IsNullOrEmpty(mNrAr) && ToInt(mNrAr) < 1)
                     return;
