@@ -6,88 +6,102 @@ using System.Windows.Forms;
 
 namespace System
 {
-    public partial class AppUI
+
+    public partial class AppServices
     {
-        static partial void GetProductNameNative(ref string appTitle)
+        static partial void Init()
         {
-            appTitle = Application.ProductName;
+            AppServices.Info = new AppInfoService();
+            AppServices.Dialog = new DialogService();
+            AppServices.OpenFileDialog = new OpenFileDialogService();
+            AppServices.SaveFileDialog = new SaveFileDialogService();
+        }
+    }
+
+    public class AppInfoService : IAppInfoService
+    {
+        public string AppName { get { return Application.ProductName; } }
+        public string AppVersion { get { return Application.ProductVersion; } }
+    }
+
+    public class DialogService : IDialogService
+    {
+        public void ShowInfo(string message)
+        {
+            MessageBox.Show(message, AppServices.Info.AppName, MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
-        static partial void GetProductVersionNative(ref string version)
+        public bool ShowOKCancel(string message)
         {
-            version = Application.ProductName;
+            var dlgRes = MessageBox.Show(message, AppServices.Info.AppName, MessageBoxButtons.OKCancel);
+            return (dlgRes == DialogResult.OK);
+        }
+
+        public void ShowWarning(string message)
+        {
+            MessageBox.Show(message, AppServices.Info.AppName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
+        public bool ShowYesNo(string message)
+        {
+            var dlgRes = MessageBox.Show(message, AppServices.Info.AppName, MessageBoxButtons.YesNo);
+            return (dlgRes == DialogResult.Yes);
+        }
+
+        public bool? ShowYesNoCancel(string message)
+        {
+            var dlgRes = MessageBox.Show(message, AppServices.Info.AppName, MessageBoxButtons.YesNoCancel);
+            if (dlgRes == DialogResult.Yes)
+                return true;
+            else if (dlgRes == DialogResult.No)
+                return false;
+            else
+                return null;
+        }
+    }
+
+    public abstract class FileDialogServiceNative : FileDialogService
+    {
+
+        protected IFileDialogAction ShowDialogNative(FileDialog dlg, Func<Stream> openFile)
+        {
+            this.AddStarPrefixToExtensions();
+            dlg.Filter = this.GetFilter();
+            dlg.InitialDirectory = IO.Path.GetDirectoryName(this.FilePath);
+            dlg.FileName = IO.Path.GetFileNameWithoutExtension(this.FilePath);
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                using (var stream = openFile())
+                {
+                    if (stream == null)
+                        return null;
+                    return this.RunAction(dlg.FilterIndex - 1, stream, dlg.FileName);
+                }
+            }
+            return null;
         }
 
     }
 
-    public partial class DialogServices
+    public class OpenFileDialogService : FileDialogServiceNative
     {
-
-        private static void InitFileDialog(FileDialog dlg, string filePath, string fileDescription, params string[] fileExtensions)
-        {
-            fileExtensions = AddStarPrefixToExtension(fileExtensions);
-            dlg.Filter = GetFileFilter(fileDescription, fileExtensions);
-            dlg.InitialDirectory = IO.Path.GetDirectoryName(filePath);
-            dlg.FileName = IO.Path.GetFileNameWithoutExtension(filePath);
-        }
-
-        static partial void OpenFileDialogNative(ref Stream stream, ref string filePath, string fileDescription, params string[] fileExtensions)
+        public override IFileDialogAction ShowDialog()
         {
             var dlg = new OpenFileDialog();
-            InitFileDialog(dlg, filePath, fileDescription, fileExtensions);
             dlg.Multiselect = false;
-
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                stream = dlg.OpenFile();
-            }
+            return ShowDialogNative(dlg, dlg.OpenFile);
         }
+    }
 
-        static partial void SaveFileDialogNative(ref Stream stream, ref string filePath, string fileDescription, params string[] fileExtensions)
+    public class SaveFileDialogService : FileDialogServiceNative
+    {
+        public override IFileDialogAction ShowDialog()
         {
             var dlg = new SaveFileDialog();
-            InitFileDialog(dlg, filePath, fileDescription, fileExtensions);
-
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                stream = dlg.OpenFile();
-            }
+            return ShowDialogNative(dlg, dlg.OpenFile);
         }
-
-
-
-        static partial void ShowInfoNative(string message)
-        {
-            MessageBox.Show(message, AppUI.ProductName, MessageBoxButtons.OK, MessageBoxIcon.None);
-        }
-
-        static partial void ShowWarningNative(string message)
-        {
-            MessageBox.Show(message, AppUI.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        }
-
-        static partial void ShowOKCancelNative(string message, ref bool result)
-        {
-            var dlgRes = MessageBox.Show(message, AppUI.ProductName, MessageBoxButtons.OKCancel);
-            result = (dlgRes == DialogResult.OK);
-        }
-
-        static partial void ShowYesNoNative(string message, ref bool result)
-        {
-            var dlgRes = MessageBox.Show(message, AppUI.ProductName, MessageBoxButtons.YesNo);
-            result = (dlgRes == DialogResult.Yes);
-        }
-
-        static partial void ShowYesNoCancelNative(string message, ref bool? result)
-        {
-            var dlgRes = MessageBox.Show(message, AppUI.ProductName, MessageBoxButtons.YesNoCancel);
-            if (dlgRes == DialogResult.Yes)
-                result = true;
-            else if (dlgRes == DialogResult.No)
-                result = false;
-            else
-                result = null;
-        }
-
     }
+
+
 }

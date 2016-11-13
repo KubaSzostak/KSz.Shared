@@ -9,10 +9,10 @@
     <Import_RootNamespace>System</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Native\AppLog.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\AppLogCore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\AppUICore.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Native\AppUI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppLogService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppServices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\AppUIService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Native\DialogServices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Classes\Disposable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Classes\LoadInfo.cs" />
@@ -39,6 +39,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringBuilderEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Localization.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\FileDialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OneLineRecord.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)System.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SysUtils.cs" />

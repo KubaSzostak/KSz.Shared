@@ -138,8 +138,8 @@ namespace System
         [LocalizedStringPl("Nieprawidłowy format danych.")]
         public string InvalidDataFormat { get; set; }
 
-        [LocalizedString("Ivalid number value: '{0}")]
-        [LocalizedStringPl("Nieprawidłowy format liczby: {0}")]
+        [LocalizedString("Ivalid number value: '{0}'")]
+        [LocalizedStringPl("Nieprawidłowy format liczby: '{0}'")]
         public string InvalidNumberFormatX { get; set; }
 
         [LocalizedString("Ivalid time format")]
@@ -226,6 +226,19 @@ namespace System
         [LocalizedString("Field number")]
         [LocalizedStringPl("Numer pola")]
         public string FieldNumber { get; set; }
+
+
+        [LocalizedString("Nothing found")]
+        [LocalizedStringPl("Nic nie znaleziono")]
+        public string NothingFound { get; set; }
+
+        [LocalizedString("'{0} not found")]
+        [LocalizedStringPl("Nie znaleziono '{0}'")]
+        public string XNotFound { get; set; }
+
+        [LocalizedString("Blocks not found")]
+        [LocalizedStringPl("Nie znaleziono bloków")]
+        public string BlocksNotFond { get; set; }
 
 
 
@@ -381,6 +394,8 @@ namespace System
         [LocalizedString("Coordinate system: \"1965\", Zone {0}")]
         [LocalizedStringPl("Układ współrzędnych \"1965\", Strefa {0}")]
         public string CoordSystem1965 { get; set; }
+
+
 
         [LocalizedString("All files (*.*)")]
         [LocalizedStringPl("Wszystkie pliki (*.*)")]
@@ -624,6 +639,12 @@ namespace System
 
 
 
+        [LocalizedString("Cancelled")]
+        [LocalizedStringPl("Anulowano")]
+        public string Canceled { get; set; }
+
+
+
         [LocalizedString("Invalid email")]
         [LocalizedStringPl("Nieprawidłowy e-mail")]
         public string InvalidEmail{ get; set; }
@@ -663,6 +684,10 @@ namespace System
         [LocalizedString("Loaded")]
         [LocalizedStringPl("Wczytano")]
         public string Loaded { get; set; }
+
+        [LocalizedString("Saving...")]
+        [LocalizedStringPl("Zapisywanie... ")]
+        public string Saving { get; set; }
 
         [LocalizedString("Error")]
         [LocalizedStringPl("Błąd")]
@@ -745,5 +770,72 @@ namespace System
         [LocalizedStringPl("Ląd")]
         public string Land { get; set; }
 
+
+
+        [LocalizedString("CSV - Comma separated values")]
+        [LocalizedStringPl("CSV - tekst rozdzielany separatorem")]
+        public string CsvFileDescription { get; set; }
+
+        [LocalizedString("Text file")]
+        [LocalizedStringPl("Plik tekstowy")]
+        public string TxtFileDescription { get; set; }
+
+        [LocalizedString("Tab delimited text")]
+        [LocalizedStringPl("Tekst rozdzielany tabulatorem")]
+        public string TabFileDescription { get; set; }
+
+
+        [LocalizedString("Fixed width text")]
+        [LocalizedStringPl("Tekst o stałej szerokości")]
+        public string FixedWidthText { get; set; }
+
+        [LocalizedString("Delimited text")]
+        [LocalizedStringPl("Tekst rozdzielany separatorem")]
+        public string DelimitedText { get; set; }
+
+        [LocalizedString("Space")]
+        [LocalizedStringPl("Spacja")]
+        public string Space { get; set; }
+
+        [LocalizedString("Tab")]
+        [LocalizedStringPl("Tabulator")]
+        public string Tab { get; set; }
+
+        [LocalizedString("Semicolon")]
+        [LocalizedStringPl("Średnik")]
+        public string Semicolon { get; set; }
+
+        [LocalizedString("Comma")]
+        [LocalizedStringPl("Przecinek")]
+        public string Comma { get; set; }
+
+        public string DelimitedFileDescription(params string[] delimiters)
+        {
+            var delimTexts = delimiters.ToList();
+            for (int i = 0; i < delimTexts.Count; i++)
+            {
+                delimTexts[i] = delimTexts[i]
+                    .Replace(" ", SysUtils.Strings.Space)
+                    .Replace("\t", SysUtils.Strings.Tab)
+                    .Replace(";", SysUtils.Strings.Semicolon)
+                    .Replace(",", SysUtils.Strings.Comma);
+            }
+            return SysUtils.Strings.DelimitedText + " (" + delimTexts.Join(", ") + ")";
+        }
+
+        
+       
+
+        [LocalizedString("Loading points...")]
+        [LocalizedStringPl("Wczytywanie punktów... ")]
+        public string LoadingPoints { get; set; }
+
+        [LocalizedString("{0} points loaded.")]
+        [LocalizedStringPl("Wczytano {0} punktów.")]
+        public string XPointsLoaded { get; set; }
+
+        [LocalizedString("{0} points saved. ")]
+        [LocalizedStringPl("Zapisano {0} punktów. ")]
+        public string XPointsSaved { get; set; }
     }
 }

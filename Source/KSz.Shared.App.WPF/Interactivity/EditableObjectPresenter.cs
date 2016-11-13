@@ -52,7 +52,7 @@ namespace System
 
         protected virtual void ShowValidationErrors()
         {
-            AppUI.Dialog.ShowWarning(GetValidationErrors().Join("\r\n"));
+            AppServices.Dialog.ShowWarning(GetValidationErrors().Join("\r\n"));
         }
     }
 
@@ -65,33 +65,31 @@ namespace System
             ItemsChanged = false;
         }
 
-        private ObservableCollection<TItem> mItems = new ObservableCollection<TItem>();
+        private ObservableCollection<TItem> _items = new ObservableCollection<TItem>();
         public ObservableCollection<TItem> Items
         {
             get
             {
-                return mItems;
+                return _items;
             }
             set
             {
-                if (object.Equals(mItems, value))
-                    return;
+                if (OnPropertyChanged(ref _items, value, nameof(Items)))
+                {
+                    _groupedItems.Source = _items;
+                    OnPropertyChanged(nameof(GroupedItems));
+                }
 
-                mItems = value;
-                OnPropertyChanged(() => Items);
-
-                mGroupedItems.Source = mItems;
-                OnPropertyChanged(() => GroupedItems);
             }
         }
 
 
-        private CollectionViewSource mGroupedItems = new CollectionViewSource();
+        private CollectionViewSource _groupedItems = new CollectionViewSource();
         public CollectionViewSource GroupedItems
         {
             get
             {
-                return mGroupedItems;
+                return _groupedItems;
                 //GroupedItems.GroupDescriptions.Add(new PropertyGroupDescription("PowGmiText"));
             }
         }
@@ -122,7 +120,7 @@ namespace System
 
         protected virtual void OnHasItemsChanged()
         {
-            OnPropertyChanged(() => HasItems);
+            OnPropertyChanged(nameof(HasItems));
         }
 
         public ICommand AddItemCommand
@@ -161,7 +159,7 @@ namespace System
             var item = SelectedItem;
             string msg = string.Format(SysUtils.Strings.DeleteQ);
             
-            if (!AppUI.Dialog.ConfirmDeleteItem(item))
+            if (!AppServices.Dialog.ConfirmDeleteItem(item))
                 return;
 
             DeleteItem(item);
@@ -215,11 +213,11 @@ namespace System
             set
             {
                 mSelectedItem = value;
-                OnPropertyChanged(() => SelectedItem);
-                OnPropertyChanged(() => IsItemSelected);
-                OnPropertyChanged(() => EditItemCommand);
-                OnPropertyChanged(() => DeleteItemCommand);
-                OnPropertyChanged(() => HasItems);
+                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged(nameof(IsItemSelected));
+                OnPropertyChanged(nameof(EditItemCommand));
+                OnPropertyChanged(nameof(DeleteItemCommand));
+                OnPropertyChanged(nameof(HasItems));
                 OnSelectedItemChanged();
             }
         }

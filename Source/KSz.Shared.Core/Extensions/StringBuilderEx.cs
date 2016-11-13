@@ -53,6 +53,16 @@ namespace System
             return false;
         }
 
+        public static bool Contains(this StringBuilder sb, params char[] chars)
+        {
+            for (int i = 0; i < sb.Length; i++)
+            {
+                if (chars.Contains(sb[i]))
+                    return true;
+            }
+            return false;
+        }
+
 
         #region *** TrimStart() ***
 

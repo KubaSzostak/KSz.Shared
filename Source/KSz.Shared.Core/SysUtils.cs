@@ -108,5 +108,32 @@ namespace System
         }
 
 
+        // https://msdn.microsoft.com/en-us/library/system.text.unicodeencoding.getpreamble(v=vs.110).aspx
+        // http://stackoverflow.com/questions/1317700/strip-byte-order-mark-from-string-in-c-sharp
+        // https://en.wikipedia.org/wiki/Byte_order_mark
+        // Pay attention to difference between UTF-8 and UTF-16
+
+
+        // UTF-8: EF BB BF (representation of the BOM is the byte sequence)
+        public static readonly string ByteOrderMarkUtf8 = new string(new char[] { '\u00EF', '\u00BB', '\u00BF' }); // char in a C# string defaults to the UTF-16 encoding of Unicode, which is 2 bytes
+
+
+        // UTF-16 Big endian byte order:    FE FF
+        // UTF-16 Little endian byte order: FF FE
+        // (representation of the BOM is one of byte sequence)
+        public static readonly char[] ByteOrderMarkUtf16 = new char[] { '\uFEFF', '\uFFFE' }; // Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+
+        public static string TrimBom(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+                return s;
+
+            s = s.TrimStart(ByteOrderMarkUtf16);
+            if (s.StartsWith(ByteOrderMarkUtf8))
+                s = s.Substring(0 + ByteOrderMarkUtf8.Length);
+
+            return s;
+        }
+
     }
 }

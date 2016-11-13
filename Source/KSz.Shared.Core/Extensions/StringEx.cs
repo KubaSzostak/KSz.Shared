@@ -100,14 +100,13 @@ namespace System
             return s.Trim();
         }
 
-        public static bool ToDouble(this string s, double defaultValue, out double result)
+        public static bool TryParse(this string s, ref double result)
         {
             if (s != null)
                 s = s.Trim();
 
             if (string.IsNullOrEmpty(s))
             {
-                result = defaultValue;
                 return true;
             }
 
@@ -115,13 +114,23 @@ namespace System
             if (NumberFormatInfo.CurrentInfo.NumberDecimalSeparator == ",")
                 s = s.Replace(",", NumberFormatInfo.InvariantInfo.NumberDecimalSeparator);
 
-            return double.TryParse(s, NumberStyles.Float, NumberFormatInfo.InvariantInfo, out result);
+            double parseRes = 0.0;
+            if (double.TryParse(s, NumberStyles.Float, NumberFormatInfo.InvariantInfo, out parseRes))
+            {
+                result = parseRes;
+                return true;
+            }
+            else
+            {
+                //result = double.NaN;
+                return false;
+            }
         }
 
         public static double ToDouble(this string s, double defaultValue)
         {
-            double res;
-            if (!s.ToDouble(defaultValue, out res))
+            double res = defaultValue;
+            if (!s.TryParse(ref res))
                 throw new FormatException(string.Format(SysUtils.Strings.InvalidNumberFormatX, s));
             return res;
         }
@@ -167,8 +176,8 @@ namespace System
 
         public static bool IsDouble(this string value)
         {
-            double res;
-            return value.ToDouble(0, out res);
+            double res = 0;
+            return value.TryParse(ref res);
         }
 
         public static string RemoveFirstChars(this string s, int count)

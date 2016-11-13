@@ -9,7 +9,6 @@
     <Import_RootNamespace>System</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AppUI.WPF.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\ImageButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
@@ -19,6 +18,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interactivity\EditableObjectPresenter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Interactivity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interactivity\Presentation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\WpfAppInfoService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\WpfAppLogService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\WpfAppServices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\WpfAppUIService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\WpfDialogServices.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Native\WpfFileDialogService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Recordset.Windows.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\ModernUIIcons.cs" />
   </ItemGroup>

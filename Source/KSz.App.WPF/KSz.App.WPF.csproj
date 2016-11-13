@@ -47,6 +47,7 @@
   <Import Project="..\KSz.Shared.Core\KSz.Shared.Core.projitems" Label="Shared" />
   <Import Project="..\KSz.Shared.Db\KSz.Shared.Data.projitems" Label="Shared" />
   <Import Project="..\KSz.Shared.App.Native\KSz.Shared.NativeApp.projitems" Label="Shared" />
+  <Import Project="..\KSz.Shared.App.WPF\KSz.Shared.WPF.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

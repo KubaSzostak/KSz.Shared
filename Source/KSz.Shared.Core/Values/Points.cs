@@ -48,7 +48,7 @@ namespace System
             Coord3 = c3;
         }
         
-        public virtual string FieldName(PointField field)
+        public virtual string GetFieldName(PointField field)
         {
             return field.ToString();
         }
@@ -58,7 +58,7 @@ namespace System
             var names = new List<string>();
             foreach (var f in fields)
             {
-                names.Add(FieldName(f));
+                names.Add(GetFieldName(f));
             }
             return names.ToArray();
         }
@@ -68,7 +68,7 @@ namespace System
             return string.Join(",", FieldNames(fields));
         }
 
-        public string GetField(PointField field)
+        public string GetFieldValue(PointField field)
         {
             switch (field)
             {
@@ -82,7 +82,22 @@ namespace System
             }
         }
 
-        public void SetField(PointField field, string value)
+        public IList<string> GetFieldValues(IEnumerable<PointField> fields)
+        {
+            var values = new List<string>();
+            foreach (var f in fields)
+            {
+                values.Add(GetFieldValue(f));
+            }
+            return values;
+        }
+
+        public IList<string> GetFieldValues(params PointField[] fields)
+        {
+            return GetFieldValues((IEnumerable<PointField>)fields);
+        }
+
+        public void SetFieldValue(PointField field, string value)
         {
             switch (field)
             {
@@ -128,8 +143,7 @@ namespace System
             get { return mId; }
             set
             {
-                mId = value;
-                OnPropertyChanged(() => Id);
+                OnPropertyChanged(ref mId, value, nameof(Id));
             }
         }
 
@@ -139,8 +153,7 @@ namespace System
             get { return mCode; }
             set
             {
-                mCode = value;
-                OnPropertyChanged(() => Code);
+                OnPropertyChanged(ref mCode, value, nameof(Code));
             }
         }
 
@@ -208,20 +221,25 @@ namespace System
 
         public XyzPoint() : base(new XYCoordinate(), new XYCoordinate(), new XYCoordinate())
         { }
-        public override string FieldName(PointField field)
+        public override string GetFieldName(PointField field)
         {
             switch (field)
             {
                 case PointField.Coord1: return "X";
                 case PointField.Coord2: return "Y";
                 case PointField.Coord3: return "Z";
-                default: return base.FieldName(field); 
+                default: return base.GetFieldName(field); 
             }
         }
 
         public double X { get { return Coord1.Value; } set { Coord1.Value = value; } }
         public double Y { get { return Coord2.Value; } set { Coord2.Value = value; } }
         public double Z { get { return Coord3.Value; } set { Coord3.Value = value; } }
+
+        public override string ToString()
+        {
+            return string.Format("Id: '{0}';   X: {1};   Y: {2};   Z: {3};   Code: '{4}'", Id, Coord1.Text, Coord2.Text, Coord3.Text, Code);
+        }
 
         public XyzPoint MultiplyVector(XyzPoint vector)
         {
@@ -303,14 +321,14 @@ namespace System
 
         public NehPoint()  : base(new XYCoordinate(), new XYCoordinate(), new HCoordinate())
         { }
-        public override string FieldName(PointField field)
+        public override string GetFieldName(PointField field)
         {
             switch (field)
             {
                 case PointField.Coord1: return "E";
                 case PointField.Coord2: return "N";
                 case PointField.Coord3: return "H";
-                default: return base.FieldName(field);
+                default: return base.GetFieldName(field);
             }
         }
 
@@ -367,14 +385,14 @@ namespace System
         public BlhPoint()
             : base(new DegreesCoordinate(), new DegreesCoordinate(), new HCoordinate())
         { }
-        public override string FieldName(PointField field)
+        public override string GetFieldName(PointField field)
         {
             switch (field)
             {
                 case PointField.Coord1: return "ɸ";
                 case PointField.Coord2: return "λ";
                 case PointField.Coord3: return "H";
-                default: return base.FieldName(field);
+                default: return base.GetFieldName(field);
             }
         }
 
@@ -428,7 +446,7 @@ namespace System
                 mStartPoint.PropertyChanged += OnCoordinateChanged;
 
                 OnCoordinateChanged(this, null);
-                OnPropertyChanged(() => StartPoint);
+                OnPropertyChanged(ref mStartPoint, value, nameof(StartPoint));
             }
         }
 
@@ -443,7 +461,7 @@ namespace System
                 mStartPoint.PropertyChanged += OnCoordinateChanged;
 
                 OnCoordinateChanged(this, null);
-                OnPropertyChanged(() => EndPoint);
+                OnPropertyChanged(ref mEndPoint, value, nameof(EndPoint));
             }
         }
 

@@ -36,13 +36,13 @@ namespace System.Data
         protected void AddValidationError(string propName, string errorMessage)
         {
             mErrors.AddListItem(propName, errorMessage);
-            OnPropertyChanged(() => HasValidationErrors);
+            OnPropertyChanged(nameof(HasValidationErrors));
         }
 
         protected void ClearValidationErros(string propName)
         {
             mErrors.Remove(propName);
-            OnPropertyChanged(() => HasValidationErrors);
+            OnPropertyChanged(nameof(HasValidationErrors));
         }
 
         protected virtual void ValidateDataAnnotations(string propertyName)
@@ -72,10 +72,10 @@ namespace System.Data
             //return error;
         }
 
-        public override void NotifyPropertyChanged(PropertyChangedEventArgs args)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
             ValidateDataAnnotations(args.PropertyName);
-            base.NotifyPropertyChanged(args);
+            base.OnPropertyChanged(args);
         }
         
         protected internal bool HasValidationErrors
@@ -157,9 +157,9 @@ namespace System.Data
             //return GetRecordValue(DbProvider.DbIdProperty);
         }
 
-        public override void NotifyPropertyChanged(PropertyChangedEventArgs args)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            base.NotifyPropertyChanged(args);
+            base.OnPropertyChanged(args);
             RecordIsChanged = true;
         }
 
@@ -327,9 +327,9 @@ namespace System.Data
         {
         }
 
-        public override void NotifyPropertyChanged(PropertyChangedEventArgs args)
+        protected override void OnPropertyChanged(PropertyChangedEventArgs args)
         {
-            base.NotifyPropertyChanged(args);
+            base.OnPropertyChanged(args);
             if (this.OwnerRecord != null)
                 this.OwnerRecord.SetRecordChanged();
         }

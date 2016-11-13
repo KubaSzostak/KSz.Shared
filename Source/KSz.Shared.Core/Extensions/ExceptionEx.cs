@@ -14,8 +14,8 @@ namespace System
             var res = ex.Message;
             var innerEx = ex.InnerException;
             var innerExNo = 1;
-            if (innerEx != null)
-                res += "\r\n";
+            //if (innerEx != null)
+            //    res += "\r\n";
 
             while (innerEx != null)
             {

@@ -56,7 +56,7 @@ namespace System
     {
         public CollectionPresenter(IList<T> source)
         {
-            mItems = source;
+            _items = source;
             AddItemCommand = new DelegateCommand(AddItemMethod)
             {
                 Caption = SysUtils.Strings.Add
@@ -83,19 +83,19 @@ namespace System
             }
         }
 
-        private IList<T> mItems;
+        private IList<T> _items;
         public IList<T> Items
         {
-            get { return mItems; }
+            get { return _items; }
             set
             {
-                if (mItems == value)
+                if (_items == value)
                     return;
 
-                mItems = value;
-                OnPropertyChanged(() => Items);
+                _items = value;
+                OnPropertyChanged(nameof(Items));
 
-                if ((mItems == null) || (!mItems.Contains(SelectedItem)))
+                if ((_items == null) || (!_items.Contains(SelectedItem)))
                     SelectedItem = default(T);
             }
         }
@@ -133,27 +133,24 @@ namespace System
             throw new NotImplementedException();
         }
 
-        private T mSelectedItem;
+        private T _selectedItem;
         public T SelectedItem
         {
-            get { return mSelectedItem; }
+            get { return _selectedItem; }
             set
             {
-                if (object.Equals(mSelectedItem, value))
-                    return;
+                if (OnPropertyChanged(ref _selectedItem, value, nameof(SelectedItem)))
+                {
+                    HasSelectedItem = value != null;
+                    OnPropertyChanged(nameof(HasSelectedItem));
 
-                mSelectedItem = value;
-                OnPropertyChanged(() => SelectedItem);
+                    HasItems = Count > 0;
+                    OnPropertyChanged(nameof(HasItems));
 
-                HasSelectedItem = value != null;
-                OnPropertyChanged(() => HasSelectedItem);
-
-                HasItems = Count > 0;
-                OnPropertyChanged(() => HasItems);
-
-                EditSelectedItemCommand.IsEnabled = HasSelectedItem;
-                DeleteSelectedItemCommand.IsEnabled = HasSelectedItem;
-                OnSelectedItemChanged();
+                    EditSelectedItemCommand.IsEnabled = HasSelectedItem;
+                    DeleteSelectedItemCommand.IsEnabled = HasSelectedItem;
+                    OnSelectedItemChanged();
+                }
             }
         }
 
@@ -210,7 +207,7 @@ namespace System
         public DelegateCommand DeleteSelectedItemCommand { get; private set; }
         private void DeleteSelectedItemMethod()
         {
-            if ((SelectedItem == null) || !AppUI.Dialog.ConfirmDeleteItem(SelectedItem))
+            if ((SelectedItem == null) || ! AppServices.Dialog.ConfirmDeleteItem(SelectedItem))
                 return;
 
             var delItem = SelectedItem;

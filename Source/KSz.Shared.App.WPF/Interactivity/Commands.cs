@@ -24,17 +24,17 @@ namespace System
 
         protected virtual void RequerySuggested(object sender, EventArgs e)
         {
-            if (lastCanExecuteChangedValue != this.CanExecute(null))
+            if (_lastCanExecuteChangedValue != this.CanExecute(null))
                 OnCanExecuteChanged();
         }
 
         public event EventHandler CanExecuteChanged;
-        private bool lastCanExecuteChangedValue = true;
+        private bool _lastCanExecuteChangedValue = true;
         public void OnCanExecuteChanged()
         {
             if (CanExecuteChanged != null)
                 CanExecuteChanged(this, EventArgs.Empty);
-            lastCanExecuteChangedValue = this.CanExecute(null);
+            _lastCanExecuteChangedValue = this.CanExecute(null);
         }
 
         public virtual bool CanExecute(object parameter)
@@ -42,58 +42,32 @@ namespace System
             return IsEnabled;
         }
 
-        private bool mIsEnabled = true;
+        private bool _isEnabled = true;
         public bool IsEnabled
         {
-            get { return mIsEnabled; }
-            set
-            {
-                if (mIsEnabled != value)
-                {
-                    mIsEnabled = value;
-                    OnPropertyChanged(() => IsEnabled);
-                }
-                OnCanExecuteChanged(); // Do not bee miser - always execute
-            }
+            get { return _isEnabled; }
+            set { OnPropertyChanged(ref _isEnabled, value, nameof(IsEnabled)); }
         }
 
-        private bool mIsChecked;
+        private bool _isChecked;
         public bool IsChecked
         {
-            get { return mIsChecked; }
-            set
-            {
-                if (mIsChecked == value)
-                    return;
-                mIsChecked = value;
-                OnPropertyChanged(() => IsChecked);
-            }
+            get { return _isChecked; }
+            set { OnPropertyChanged(ref _isChecked, value, nameof(IsChecked)); }
         }
 
-        private string mCaption;
+        private string _caption;
         public string Caption
         {
-            get { return mCaption; }
-            set
-            {
-                if (mCaption == value)
-                    return;
-                mCaption = value;
-                OnPropertyChanged(() => Caption);
-            }
+            get { return _caption; }
+            set { OnPropertyChanged(ref _caption, value, nameof(Caption)); }
         }
 
-        private string mDescription;
+        private string _description;
         public string Description
         {
-            get { return mDescription; }
-            set
-            {
-                if (mDescription == value)
-                    return;
-                mDescription = value;
-                OnPropertyChanged(() => Description);
-            }
+            get { return _description; }
+            set { OnPropertyChanged(ref _description, value, nameof(Description)); }
         }
     }
 

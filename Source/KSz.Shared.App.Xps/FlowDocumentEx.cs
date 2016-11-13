@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace System.Windows.Documents
@@ -45,5 +47,19 @@ namespace System.Windows.Documents
             return section;
         }
 
+        public static void AddClickAction(this FrameworkContentElement element, Action action, string tooltip = null)
+        {
+            element.Cursor = Cursors.Hand;
+            element.ToolTip = tooltip;
+            element.MouseLeftButtonDown += (s, e) =>
+            {
+                action();
+            };
+        }
+
+        public static void OpenPathOnClick(this FrameworkContentElement element, string path, string tooltip = null)
+        {
+            element.AddClickAction(() => Process.Start(path), tooltip);
+        }
     }
 }

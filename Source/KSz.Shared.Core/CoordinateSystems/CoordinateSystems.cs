@@ -51,11 +51,11 @@ namespace CoordinateSystems
 
     public class CoordinateSystemFormatPresenter : ObservableObject
     {
-        private CoordinateSystem mCoordinateSystem = CoordinateSystem.Default;
-        private string mDegreesPrecision = "0.000";
-        private string mXYPrecision = "0.00";
-        private bool mFlipCoordinates = false;
-        private DegreesFormat mDegreesFormat = DegreesFormat.DegMinSec;
+        private CoordinateSystem _coordinateSystem = CoordinateSystem.Default;
+        private string _degreesPrecision = "0.000";
+        private string _XYPrecision = "0.00";
+        private bool _flipCoordinates = false;
+        private DegreesFormat _degreesFormat = DegreesFormat.DegMinSec;
         
         public event EventHandler Changed;
         public IList<CoordinateSystem> CoordinateSystemValues
@@ -67,16 +67,17 @@ namespace CoordinateSystems
         {
             get
             {
-                return this.mCoordinateSystem;
+                return this._coordinateSystem;
             }
             set
             {
-                this.mCoordinateSystem = value;
-                base.OnPropertyChanged<CoordinateSystem>(() => this.CoordinateSystem);
-                base.OnPropertyChanged<string>(() => this.SampleText);
-                base.OnPropertyChanged<bool>(() => this.IsDegreesFormatEnabled);
-                base.OnPropertyChanged<string>(() => this.Precision);
-                this.OnChanged();
+                if (OnPropertyChanged(ref _coordinateSystem, value, nameof(CoordinateSystem)))
+                {
+                    base.OnPropertyChanged(nameof(SampleText));
+                    base.OnPropertyChanged(nameof(IsDegreesFormatEnabled));
+                    base.OnPropertyChanged(nameof(Precision));
+                    this.OnChanged();
+                }
             }
         }
         public IList<string> PrecisionValues
@@ -92,11 +93,11 @@ namespace CoordinateSystems
                 string result;
                 if (flag)
                 {
-                    result = this.mDegreesPrecision;
+                    result = this._degreesPrecision;
                 }
                 else
                 {
-                    result = this.mXYPrecision;
+                    result = this._XYPrecision;
                 }
                 return result;
             }
@@ -105,14 +106,14 @@ namespace CoordinateSystems
                 bool flag = this.CoordinateSystem is GeodeticCoordinateSystem;
                 if (flag)
                 {
-                    this.mDegreesPrecision = value;
+                    this._degreesPrecision = value;
                 }
                 else
                 {
-                    this.mXYPrecision = value;
+                    this._XYPrecision = value;
                 }
-                base.OnPropertyChanged<string>(() => this.Precision);
-                base.OnPropertyChanged<string>(() => this.SampleText);
+                base.OnPropertyChanged(nameof(Precision));
+                base.OnPropertyChanged(nameof(SampleText));
             }
         }
         public string SampleText
@@ -145,14 +146,15 @@ namespace CoordinateSystems
         {
             get
             {
-                return this.mFlipCoordinates;
+                return this._flipCoordinates;
             }
             set
             {
-                this.mFlipCoordinates = value;
-                base.OnPropertyChanged<bool>(() => this.FlipCoordinates);
-                base.OnPropertyChanged<string>(() => this.SampleText);
-                this.OnChanged();
+                if (OnPropertyChanged(ref _flipCoordinates, value, nameof(FlipCoordinates)))
+                {
+                    base.OnPropertyChanged(nameof(SampleText));
+                    this.OnChanged();
+                }
             }
         }
         public Array DegreesFormatValues
@@ -164,13 +166,14 @@ namespace CoordinateSystems
         {
             get
             {
-                return this.mDegreesFormat;
+                return this._degreesFormat;
             }
             set
             {
-                this.mDegreesFormat = value;
-                base.OnPropertyChanged<DegreesFormat>(() => this.DegreesFormat);
-                base.OnPropertyChanged<string>(() => this.SampleText);
+                if (OnPropertyChanged(ref _degreesFormat, value, nameof(DegreesFormat)))
+                {
+                    base.OnPropertyChanged(nameof(SampleText));
+                }
             }
         }
         public bool IsDegreesFormatEnabled
@@ -207,17 +210,17 @@ namespace CoordinateSystems
         }
         public void LoadFromDefaults()
         {
-            this.mDegreesFormat = DegreesCoordinate.DefaultDegreesFormat;
-            this.mDegreesPrecision = DegreesCoordinate.DefaultPrecision;
-            this.mXYPrecision = XYCoordinate.DefaultPrecision;
-            this.mCoordinateSystem = CoordinateSystem.Default;
+            this._degreesFormat = DegreesCoordinate.DefaultDegreesFormat;
+            this._degreesPrecision = DegreesCoordinate.DefaultPrecision;
+            this._XYPrecision = XYCoordinate.DefaultPrecision;
+            this._coordinateSystem = CoordinateSystem.Default;
         }
         public void SaveToDefaults()
         {
-            DegreesCoordinate.DefaultDegreesFormat = this.mDegreesFormat;
-            DegreesCoordinate.DefaultPrecision = this.mDegreesPrecision;
-            XYCoordinate.DefaultPrecision = this.mXYPrecision;
-            CoordinateSystem.Default = this.mCoordinateSystem;
+            DegreesCoordinate.DefaultDegreesFormat = this._degreesFormat;
+            DegreesCoordinate.DefaultPrecision = this._degreesPrecision;
+            XYCoordinate.DefaultPrecision = this._XYPrecision;
+            CoordinateSystem.Default = this._coordinateSystem;
         }
         protected void OnChanged()
         {

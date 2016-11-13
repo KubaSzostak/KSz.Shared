@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace System
@@ -42,10 +43,13 @@ namespace System
             }
         }
 
+        private static PropertyChangedEventArgs valueChangedEventArgs = new PropertyChangedEventArgs(nameof(Value));
+        private static PropertyChangedEventArgs textChangedEventArgs = new PropertyChangedEventArgs(nameof(Text));
+
         protected virtual void OnCoordinateChanged()
         {
-            OnPropertyChanged(() => Value);
-            OnPropertyChanged(() => Text);
+            OnPropertyChanged(valueChangedEventArgs);
+            OnPropertyChanged(textChangedEventArgs);
         }
 
         public string Text
@@ -117,10 +121,11 @@ namespace System
             return DefaultPrecision;
         }
 
+        private static PropertyChangedEventArgs angleChangedEventArgs = new PropertyChangedEventArgs(nameof(Angle));
         protected override void OnCoordinateChanged()
         {
             base.OnCoordinateChanged();
-            OnPropertyChanged(() => Angle);
+            OnPropertyChanged(angleChangedEventArgs);
         }
 
         public override double Value

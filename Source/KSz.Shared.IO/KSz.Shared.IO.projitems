@@ -9,17 +9,20 @@
     <Import_RootNamespace>System</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\DataStorageAccess.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\DataStorageAccessEx.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\CSV_obsolote.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\Geo\GSI.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\Geo\IDEX.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\TextLines\TextLines.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\TextLines\TextLinesStorage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\TextLines\TextLinesStorageCSV.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageAccess\ZIP.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageSerialization\DataStorageSerialization.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageSerialization\Point\Point.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StorageSerialization\Point\PointTextLines.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\TextLine\TextLine.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\TextLine\TextLines.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageProvider\Point\PointStorageProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageProvider\Point\PointTextStorageProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StorageProvider\StorageProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Storage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Geo\GSI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Geo\IDEX.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Text\CSV_obsolote.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Text\TextLinesStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Text\TextLinesStorageCSV.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\Text\TextStorage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\Repository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\Point\PointRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Storage\ZIP\ZIP.cs" />
   </ItemGroup>
 </Project>
