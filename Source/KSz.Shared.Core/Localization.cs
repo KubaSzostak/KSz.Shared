@@ -837,5 +837,197 @@ namespace System
         [LocalizedString("{0} points saved. ")]
         [LocalizedStringPl("Zapisano {0} punktów. ")]
         public string XPointsSaved { get; set; }
+
+
+
+        [LocalizedString("Enter insert point")]
+        [LocalizedStringPl("Wskaż punkt wstawienia")]
+        public string EnterInsertionPoint { get; set; }
+
+        [LocalizedString("Enter start point")]
+        [LocalizedStringPl("Wskaż punkt początkowy")]
+        public string EnterStartPoint { get; set; }
+
+        [LocalizedString("Enter end point")]
+        [LocalizedStringPl("Wskaż punkt końcowy")]
+        public string EnterEndPoint { get; set; }
+
+        [LocalizedString("Enter point")]
+        [LocalizedStringPl("Wskaż punkt")]
+        public string EnterPoint { get; set; }
+
+        [LocalizedString("Enter point ID")]
+        [LocalizedStringPl("Podaj identyfikator punktu")]
+        public string EnterPointId { get; set; }
+
+        [LocalizedString("Enter block name")]
+        [LocalizedStringPl("Podaj nazwę bloku")]
+        public string EnterBlockName { get; set; }
+
+        [LocalizedString("Enter text height")]
+        [LocalizedStringPl("Podaj wysokość tekstu")]
+        public string EnterTextHeight { get; set; }
+
+        [LocalizedString("Enter text position")]
+        [LocalizedStringPl("Wskaż pozycję testu")]
+        public string EnterTextPosition { get; set; }
+
+        [LocalizedString("Select block")]
+        [LocalizedStringPl("Wskaż blok")]
+        public string SelectBlock { get; set; }
+
+        [LocalizedString("Select text")]
+        [LocalizedStringPl("Wskaż tekst")]
+        public string SelectText { get; set; }
+
+        [LocalizedString("Select line")]
+        [LocalizedStringPl("Wskaż linię")]
+        public string SelectLine { get; set; }
+
+
+
+
+        [LocalizedString("Tools")]
+        [LocalizedStringPl("Narzędzia")]
+        public string Tools { get; set; }
+
+        [LocalizedString("Info")]
+        [LocalizedStringPl("Info")]
+        public string Info { get; set; }
+
+        [LocalizedString("Rysowanie")]
+        [LocalizedStringPl("Drawing")]
+        public string Drawing { get; set; }
+
+        [LocalizedString("Blocks")]
+        [LocalizedStringPl("Bloki")]
+        public string Blocks { get; set; }
+
+        [LocalizedString("Configuration")]
+        [LocalizedStringPl("Konfiguracja")]
+        public string Configuration { get; set; }
+
+        [LocalizedString("License")]
+        [LocalizedStringPl("Licencja")]
+        public string License { get; set; }
+
+        [LocalizedString("Make suggestion")]
+        [LocalizedStringPl("Zgłoś sugestię")]
+        public string MakeSuggestion { get; set; }
+
+        [LocalizedString("Show LOG file")]
+        [LocalizedStringPl("Pokaż plik LOG")]
+        public string ShowLogFile { get; set; }
+
+
+        [LocalizedString("Loading lines...")]
+        [LocalizedStringPl("Wczytywanie linii... ")]
+        public string LoadingLines { get; set; }
+
+        [LocalizedString("Creating polygons...")]
+        [LocalizedStringPl("Tworzenie poligonów... ")]
+        public string CreatingPolygons { get; set; }
+
+        [LocalizedString("Deleting duplicates...")]
+        [LocalizedStringPl("Usuwanie duplikatów... ")]
+        public string DeletingDuplicates { get; set; }
+
+        [LocalizedString("Processing data...")]
+        [LocalizedStringPl("Przetwarzanie danych... ")]
+        public string ProcessingData { get; set; }
+
+
+        [LocalizedString("{0} entities updated")]
+        [LocalizedStringPl("Zaktualizowano {0} obiektów. ")]
+        public string XEntitesUpdated { get; set; }
+
+
+        [LocalizedString("Ribbon with tools is not active - change worspace")]
+        [LocalizedStringPl("Wstążka z narzędziami (Ribbon) nie jest aktywna - należy zmienić przestrzeń roboczą (Workspace)")]
+        public string RibbonNotFound { get; set; }
+
+
+
+
+        [LocalizedString("Control point")]
+        [LocalizedStringPl("Punkt osnowy")]
+        public string ControlPoint { get; set; }
+
+        [LocalizedString("Boundary point")]
+        [LocalizedStringPl("Punkt graniczny")]
+        public string BoundaryPoint { get; set; }
+
+        [LocalizedString("Survey point")]
+        [LocalizedStringPl("Punkt pomiarowy")]
+        public string SurveyPoint { get; set; }
+
+        [LocalizedString("Height point")]
+        [LocalizedStringPl("Punkt wysokościowy")]
+        public string HeightPoint { get; set; }
+
+        [LocalizedString("BenchMark")]
+        [LocalizedStringPl("Reper")]
+        public string BenchMark { get; set; }
+
+
+        [LocalizedString("Blocks import")]
+        [LocalizedStringPl("Import bloków")]
+        public string ImportBlocks { get; set; }
+
+        [LocalizedString("Blocks export")]
+        [LocalizedStringPl("Eksport bloków")]
+        public string ExportBlocks { get; set; }
+
+        [LocalizedString("Texts export")]
+        [LocalizedStringPl("Eksport tekstów")]
+        public string ExportTexts { get; set; }
+
+        [LocalizedString("Export text and coordinates of text position")]
+        [LocalizedStringPl("Eksportuje teksty oraz współrzędne wstawienia tekstu")]
+        public string ExportTextsDsc { get; set; }
+
+        [LocalizedString("Block settings")]
+        [LocalizedStringPl("Ustawienia bloków")]
+        public string BlockSettings { get; set; }
+
+        [LocalizedString("Update DGN")]
+        [LocalizedStringPl("Aktualizuj DGN")]
+        public string ConvertDgnTexts { get; set; }
+
+        [LocalizedString("Change Polish characters generatedy by Microstation")]
+        [LocalizedStringPl("Zamienia krzaczki z zaimportowanych plików DGN na litery z polskimi ogonkami")]
+        public string ConvertDgnTextsDsc { get; set; }
+
+        [LocalizedString("Slope")]
+        [LocalizedStringPl("Spadek")]
+        public string Slope { get; set; }
+
+        [LocalizedString("Calculate slope between two points")]
+        [LocalizedStringPl("Oblicza spadek wyrażony w % pomiędzy dwoma punktami")]
+        public string SlopeDsc { get; set; }
+
+        [LocalizedString("Ortho")]
+        [LocalizedStringPl("Orto")]
+        public string Orto { get; set; }
+
+        [LocalizedString("Set Ortho mode and begin line drawing. Use F10 button in order to turn Ortho mode off.")]
+        [LocalizedStringPl("Ustawia tryb rysowania 'Orto' i rozpoczyna rysowanie polilinii. Aby wyłączyć tryb 'Orto' użyj przycisku F10.")]
+        public string OrtoDsc { get; set; }
+
+        [LocalizedString("Find block")]
+        [LocalizedStringPl("Znajdź blok")]
+        public string FindBlock { get; set; }
+
+
+
+
+        [LocalizedString("License loaded. Restart application again to apply changes.")]
+        [LocalizedStringPl("Licencja została wczytana. Uruchom aplikację ponownie aby wprowadzić zmiany.")]
+        public string LicLoaded { get; set; }
+
+
+        [LocalizedString("Show Geo7 palette")]
+        [LocalizedStringPl("Pokazuje paletę narzędzi Geo7 Tools")]
+        public string ShowToolsPaletteDsc { get; set; }
     }
 }

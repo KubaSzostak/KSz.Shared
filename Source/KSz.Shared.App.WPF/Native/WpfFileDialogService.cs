@@ -23,9 +23,9 @@ namespace System
             get { return this.Dialog.FileName; }
             set
             {
-                this.Dialog.FileName = value; // IO.Path.GetFileNameWithoutExtension(value);
+                this.Dialog.FileName = IO.Path.GetFileName(value); // IO.Path.GetFileNameWithoutExtension(value);
                 this.Dialog.InitialDirectory = IO.Path.GetDirectoryName(value);
-                // this.Dialog.DefaultExt = IO.Path.GetExtension(value);
+                this.Dialog.DefaultExt = IO.Path.GetExtension(value);
                 // this.Dialog.AddExtension = true;
             }
         }
